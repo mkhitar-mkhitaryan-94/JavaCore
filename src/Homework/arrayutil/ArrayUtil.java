@@ -75,9 +75,9 @@ public class ArrayUtil {
 
 
         //Տպեք մասիվի բոլոր թվերի միջին թվաբանականը
-        double result = 0;
-        if (array.length > 0) {
-            double gumar = 0;
+        double result=0;
+        if (array.length>0) {
+        double gumar = 0;
             for (int i = 0; i < array.length; i++) {
                 gumar = gumar + array[i];
             }
@@ -90,9 +90,9 @@ public class ArrayUtil {
 
 
         int gumar = 0;
-        for (int i = 0; i < array.length; i++) {
-            gumar = gumar + array[i];
-        }
+       for (int i = 0; i < array.length; i++) {
+           gumar = gumar + array[i];
+       }
 
         System.out.print(gumar);
     }
