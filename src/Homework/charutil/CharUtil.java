@@ -36,19 +36,40 @@ public class CharUtil {
 
 
         //Տպում ենք true եթե տեքստը պարունակում է bob բառը, բայց o-ի տեղը կարող է լինել ցանկացած սինվոլ։
+        char[] bolol = {'b', 'o', 'l', 'o', 'l', 'a'};
+        boolean isBob = false;
+        for (int i = 0; i < bolol.length - 2; i++) {
+            if (bolol[i] == 'b' && bolol[i + 2] == 'b') {
+                isBob = true;
+                break;
 
-
-        //CHI STACVEL !!!
-
-
-        // Պետք է գրել կոդ, որը text մասիվից կստանա char[] result մասիվ, որը կլինի նույն տեքստը, առանց պռաբելների(իրար կողք կտպի barev)։
-        char[] text = {' ',' ','b','a','r','e','v',' ',' '};
-        for (int i = 0;  i < text.length; i++) {
-            if (text[i] != ' ') {
-                System.out.print(text[i]);
             }
 
         }
+        System.out.println(isBob);
+
+
+        // Պետք է գրել կոդ, որը text մասիվից կստանա char[] result մասիվ, որը կլինի նույն տեքստը, առանց պռաբելների(իրար կողք կտպի barev)։
+        char[] text = {' ', ' ', 'h', 'e', 'l', 'l', 'o', ' ', 'j', 'a', 'v', 'a', ' ', ' ', ' '};
+        int startIndex = 0;
+        int endIndex = text.length - 1;
+        while (startIndex < endIndex && text[startIndex] == ' ') {
+            startIndex++;
+        }
+        while (startIndex < endIndex && text[endIndex] == ' ') {
+            endIndex--;
+        }
+        char[] result = new char[(endIndex - startIndex) + 1];
+        int index = 0;
+        for (int i = startIndex; i <= endIndex; i++) {
+            result[index++] = text[i];
+        }
+        for (int i = 0; i < result.length; i++) {
+            System.out.print(result[i]);
+
+        }
+
+
     }
 }
 
