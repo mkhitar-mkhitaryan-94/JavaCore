@@ -9,6 +9,7 @@ public class BraceChecker {
     public BraceChecker(String text) {
         this.text = text;
     }
+
     //սա հիմնական մեթոդն է, որի մեջ գրելու ենք ամբողջ լոգիկան․ աշխատելու ենք թե stack-ի հետ, թե վերևի text-ի
     public void check() {
         Stack stack = new Stack();
@@ -52,7 +53,6 @@ public class BraceChecker {
                 System.out.println("Opened " + br + "but dont closed");
             }
         }
-
     }
 }
 
