@@ -1,26 +1,25 @@
 package Homework.author;
 
 public class AuthorStorage {
-    private Author[] array;
-    private int size = 0;
+    private Author[] authors = new Author[16];
+    private int size;
+
 
     AuthorStorage() {
-        array = new Author[10];
+
     }
 
     public void add(Author author) {
-        if (array.length == size) {
+        if (authors.length == size) {
             extend();
         }
-        array[size++] = author;
+        authors[size++] = author;
     }
 
     private void extend() {
-        Author[] tmp = new Author[array.length + (array.length / 2)];
-        for (int i = 0; i < array.length; i++) {
-            tmp[i] = array[i];
-        }
-        array = tmp;
+        Author[] tmp = new Author[authors.length + 10];
+        System.arraycopy(authors, 0, tmp, 0, authors.length);
+        authors = tmp;
     }
 
 
@@ -29,15 +28,33 @@ public class AuthorStorage {
             System.err.println(index);
             return null;
         }
-        return array[index];
+        return authors[index];
     }
 
 
     public void print() {
         for (int i = 0; i < size; i++) {
-            System.out.print(array[i] + " ");
+            System.out.print(authors[i] + " ");
         }
         System.out.println();
     }
 
+    public void searchByName(String keyword) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getName().contains(keyword)) {
+                System.out.println(authors[i]);
+            }
+
+        }
+
+    }
+
+    public void searchByAge(int minAge, int maxAge) {
+        for (int i = 0; i < size; i++) {
+            if (authors[i].getAge() > minAge && authors[i].getAge() < maxAge) {
+                System.out.println(authors[i]);
+            }
+        }
+
+    }
 }
