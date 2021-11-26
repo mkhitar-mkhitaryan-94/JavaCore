@@ -49,9 +49,8 @@ public class BookStorage {
                 System.out.println(books[i].getCount());
                 count++;
             }
-            System.out.println(count);
-
         }
+        System.out.println(count);
 
 
     }
@@ -64,7 +63,52 @@ public class BookStorage {
 
         }
     }
+
+    public Book getByTitle(String keyword) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getTitle().contains(keyword)) {
+                return books[i];
+            }
+        }
+        return null;
+    }
+
+
+    public Book getbyTitle(String title) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getTitle().equals(title)) {
+                return books[i];
+            }
+        }
+        return null;
+    }
+
+    public void deleteByAuthor(String email) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getAuthor().getEmail().equals(email)) {
+                for (int j = i + 1; j < size; j++) {
+                    books[j - 1] = books[j];
+
+                }
+            }
+
+        }
+        size--;
+    }
+
+    public void deleteBook(String title) {
+        for (int i = 0; i < size; i++) {
+            if (books[i].getTitle().equals(title)) {
+                for (int j = i + 1; j < size; j++) {
+                    books[j - 1] = books[j];
+                }
+            }
+
+        }
+        size--;
+    }
 }
+
 
 
 
