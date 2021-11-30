@@ -1,5 +1,6 @@
 package Homework.education;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Student {
@@ -9,15 +10,15 @@ public class Student {
     private int age;
     private String email;
     private String phone;
-    private String lesson;
+    private Lesson[] lessons;
 
-    public Student(String name, String surname, int age, String email, String phone, String lesson) {
+    public Student(String name, String surname, int age, String email, String phone, Lesson[] lessons) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.email = email;
         this.phone = phone;
-        this.lesson = lesson;
+        this.lessons = lessons;
     }
 
     public Student() {
@@ -63,14 +64,13 @@ public class Student {
         this.phone = phone;
     }
 
-    public String getLesson() {
-        return lesson;
+    public Lesson[] getLessons() {
+        return lessons;
     }
 
-    public void setLesson(String lesson) {
-        this.lesson = lesson;
+    public void setLessons(Lesson[] lessons) {
+        this.lessons = lessons;
     }
-
 
     @Override
     public String toString() {
@@ -78,9 +78,9 @@ public class Student {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
-                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", lesson=" + lesson +
+                ", phone='" + phone + '\'' +
+                ", lessons=" + Arrays.toString(lessons) +
                 '}';
     }
 
@@ -89,16 +89,15 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return age == student.age &&
-                Objects.equals(name, student.name)
-                && Objects.equals(surname, student.surname)
-                && Objects.equals(phone, student.phone)
-                && Objects.equals(email, student.email)
-                && Objects.equals(lesson, student.lesson);
+        return age == student.age && Objects.equals(name, student.name) && Objects.equals(surname, student.surname)
+                && Objects.equals(email, student.email) && Objects.equals(phone, student.phone)
+                && Arrays.equals(lessons, student.lessons);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, age, phone, email, lesson);
+        int result = Objects.hash(name, surname, age, email, phone);
+        result = 31 * result + Arrays.hashCode(lessons);
+        return result;
     }
 }

@@ -44,7 +44,7 @@ public class StudentStorage {
 
     public void printStudentByLesson(String name) {
         for (int i = 0; i < size; i++) {
-            if (students[i].getLesson().equals(name)) {
+            if (students[i].getLessons().equals(name)) {
                 System.out.println(students[i]);
             }
 
