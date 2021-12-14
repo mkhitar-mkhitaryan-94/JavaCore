@@ -3,6 +3,8 @@ package homework.education.storage;
 import homework.education.util.ArrayUtil;
 import homework.education.model.Student;
 
+import java.util.Arrays;
+
 public class StudentStorage {
     private Student[] students = new Student[10];
     private int size;
@@ -47,7 +49,7 @@ public class StudentStorage {
 
     public void printStudentByLesson(String name) {
         for (int i = 0; i < size; i++) {
-            if (students[i].getLessons().equals(name)) {
+            if (Arrays.toString(students[i].getLessons()).equals(name)) {
                 System.out.println(students[i]);
             }
 
