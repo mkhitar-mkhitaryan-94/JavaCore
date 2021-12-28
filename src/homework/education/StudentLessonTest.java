@@ -6,6 +6,7 @@ import homework.education.commands.StudentLessonCommands;
 import homework.education.model.Lesson;
 import homework.education.model.Student;
 import homework.education.model.User;
+import homework.education.model.UserType;
 import homework.education.storage.LessonStorage;
 import homework.education.storage.StudentStorage;
 import homework.education.storage.UserStorage;
@@ -13,6 +14,7 @@ import homework.education.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class StudentLessonTest implements StudentLessonCommands, RegisterCommands {
@@ -23,8 +25,8 @@ public class StudentLessonTest implements StudentLessonCommands, RegisterCommand
 
 
     public static void main(String[] args) throws ParseException, UserNotFoundException {
-        userStorage.add(new User("mkhitar", "mkhitaryan", "mkh@mail.com", "mkhitar94", "admin"));
-        userStorage.add(new User("poxos", "poxosyan", "poxos@mail.com", "poxos97", "user"));
+        userStorage.add(new User("mkhitar", "mkhitaryan", "mkh@mail.com", "mkhitar94", UserType.ADMIN));
+        userStorage.add(new User("poxos", "poxosyan", "poxos@mail.com", "poxos97", UserType.USER));
 
         boolean start = true;
         while (start) {
@@ -133,21 +135,25 @@ public class StudentLessonTest implements StudentLessonCommands, RegisterCommand
         String email = scanner.nextLine();
         System.out.println("please input user's password");
         String password = scanner.nextLine();
-        System.out.println("please input user's type");
-        String type = scanner.nextLine();
+        System.out.println("please input admin or user");
+
         try {
             userStorage.getByEmail(email);
             System.out.println("User with this email already exists ");
         } catch (UserNotFoundException e) {
-            if (type.equals("user") || type.equals("admin")) {
+
+            try {
+                UserType type = UserType.valueOf(scanner.nextLine().toUpperCase());
                 User user = new User(name, surname, email, password, type);
                 userStorage.add(user);
                 System.out.println("Thank you, user was added");
-            } else {
+            } catch (IllegalArgumentException a) {
                 System.out.println("invalid type");
             }
+
         }
     }
+
 
     private static void login() throws ParseException {
         System.out.println("Please input email");
@@ -157,10 +163,10 @@ public class StudentLessonTest implements StudentLessonCommands, RegisterCommand
         try {
             User user = userStorage.getByEmail(email);
             if (user != null && user.getPassword().equals(password)) {
-                if (user.getType().equals("user")) {
+                if (user.getType() == UserType.USER) {
                     user();
                 }
-                if (user.getType().equals("admin")) {
+                if (user.getType() == UserType.ADMIN) {
                     admin();
                 }
             }
