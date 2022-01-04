@@ -14,7 +14,6 @@ import homework.education.util.DateUtil;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class StudentLessonTest implements StudentLessonCommands, RegisterCommands {
@@ -25,8 +24,12 @@ public class StudentLessonTest implements StudentLessonCommands, RegisterCommand
 
 
     public static void main(String[] args) throws ParseException, UserNotFoundException {
-        userStorage.add(new User("mkhitar", "mkhitaryan", "mkh@mail.com", "mkhitar94", UserType.ADMIN));
-        userStorage.add(new User("poxos", "poxosyan", "poxos@mail.com", "poxos97", UserType.USER));
+        User user = new User("Poxos", "Poxosyan", "poxosyan@gmail.com", "poxosyan", UserType.USER);
+        User user1 = new User("Mkhitar", "Mkhitaryan","mkhitaryan@mail.com","mkhitaryan",UserType.ADMIN);
+        User user2 = new User("Martiros", "Martirosyan", "mart@gmail.com", "martirosyan", UserType.USER);
+        userStorage.add("poxosyan@gmail.com", user);
+        userStorage.add("mkhitaryan@mail.com", user1);
+        userStorage.add("mart@gmail.com", user2);
 
         boolean start = true;
         while (start) {
@@ -145,7 +148,7 @@ public class StudentLessonTest implements StudentLessonCommands, RegisterCommand
             try {
                 UserType type = UserType.valueOf(scanner.nextLine().toUpperCase());
                 User user = new User(name, surname, email, password, type);
-                userStorage.add(user);
+                userStorage.add(email,user);
                 System.out.println("Thank you, user was added");
             } catch (IllegalArgumentException a) {
                 System.out.println("invalid type");
@@ -180,7 +183,7 @@ public class StudentLessonTest implements StudentLessonCommands, RegisterCommand
         System.out.println("please input old phone number");
         studentStorage.print();
         String phone = scanner.nextLine();
-        Student student = studentStorage.changePhoneNumber(phone);
+        Student student = studentStorage.changeStudentPhone(phone);
         if (phone != null) {
             System.out.println("please input new phone number");
             String newNumber = scanner.nextLine();
@@ -218,7 +221,7 @@ public class StudentLessonTest implements StudentLessonCommands, RegisterCommand
         String name = scanner.nextLine();
         Lesson lesson = lessonStorage.getByName(name);
         if (lesson != null) {
-            studentStorage.printStudentByLesson(name);
+            studentStorage.printStudentByLesson(lesson);
 
 
         } else {

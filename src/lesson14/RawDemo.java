@@ -10,9 +10,9 @@ public class RawDemo {
 
     }
 }
-class Gen <T>{
+class Gens <T>{
     T ob ;
-    Gen (T o ){
+    Gens (T o ){
         ob = o;
 
     }

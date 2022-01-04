@@ -1,69 +1,62 @@
 package homework.education.storage;
 
-import homework.education.util.ArrayUtil;
+import homework.education.model.Lesson;
 import homework.education.model.Student;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+
+
 
 public class StudentStorage {
-    private Student[] students = new Student[10];
-    private int size;
+    private LinkedList<Student> students = new LinkedList<>();
+
 
     public void add(Student student) {
-        if (students.length == size) {
-            extend();
-        }
-        students[size++] = student;
-    }
-
-    private void extend() {
-        Student[] tmp = new Student[students.length + 10];
-        System.arraycopy(students, 0, tmp, 0, students.length);
-        students = tmp;
+        students.add(student);
     }
 
     public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.println(students[i]);
+        for (Student student : students) {
+            System.out.println(student);
         }
     }
 
     public Student getByEmail(String email) {
-        for (int i = 0; i < size; i++) {
-            if (students[i].getEmail().equals(email)) {
-                return students[i];
+        for (Student student : students) {
+            if (student.getEmail().equals(email)) {
+                return student;
             }
         }
         return null;
+    }
+
+    public void printStudentByLesson(Lesson lesson) {
+        for (Student student : students) {
+            for (Lesson studentLesson : student.getLessons()) {
+                if (studentLesson.equals(lesson)) {
+                    System.out.println(student);
+                }
+            }
+        }
     }
 
     public void deleteStudentByEmail(Student student) {
-        for (int i = 0; i < size; i++) {
-            if (students[i].equals(student)) {
-                ArrayUtil.deleteByIndex(students, i, size);
-                size--;
-                break;
+        for (Student student1 : students) {
+            if (student1.equals(student)) {
+                students.remove();
             }
         }
     }
 
-    public void printStudentByLesson(String name) {
-        for (int i = 0; i < size; i++) {
-            if (Arrays.toString(students[i].getLessons()).equals(name)) {
-                System.out.println(students[i]);
-            }
-
-        }
-
-    }
-
-
-    public Student changePhoneNumber(String phone) {
-        for (int i = 0; i < size; i++) {
-            if (students[i].getPhone().equals(phone)) {
-                return students[i];
+    public Student changeStudentPhone(String phone) {
+        for (Student student: students) {
+            if (student.getPhone().equals(phone)) {
+                return student;
             }
         }
         return null;
     }
-}
+
+    }
+
+
