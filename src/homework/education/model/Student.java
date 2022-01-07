@@ -1,32 +1,31 @@
 package homework.education.model;
 
-import homework.education.util.DateUtil;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
+import java.util.Set;
 
-public class Student {
-
+public class Student implements Serializable {
     private String name;
     private String surname;
     private int age;
     private String email;
     private String phone;
+    private Set<Lesson> lessons;
     private Date registeredDate;
-    private Lesson[] lessons;
 
-    public Student(String name, String surname, int age, String email, String phone, Date registeredDate, Lesson[] lessons) {
+    public Student(String name, String surname, int age, String email, String phone, Set<Lesson> lessons, Date registeredDate) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.email = email;
         this.phone = phone;
-        this.registeredDate = registeredDate;
         this.lessons = lessons;
+        this.registeredDate = registeredDate;
     }
 
     public Student() {
+
     }
 
 
@@ -70,6 +69,14 @@ public class Student {
         this.phone = phone;
     }
 
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(Set<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
     public Date getRegisteredDate() {
         return registeredDate;
     }
@@ -78,28 +85,31 @@ public class Student {
         this.registeredDate = registeredDate;
     }
 
-    public Lesson[] getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(Lesson[] lessons) {
-        this.lessons = lessons;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Student student = (Student) o;
-        return age == student.age && Objects.equals(name, student.name) && Objects.equals(surname, student.surname)
-                && Objects.equals(email, student.email) && Objects.equals(phone, student.phone)
-                && Objects.equals(registeredDate, student.registeredDate) && Arrays.equals(lessons, student.lessons);
+
+        if (age != student.age) return false;
+        if (name != null ? !name.equals(student.name) : student.name != null) return false;
+        if (surname != null ? !surname.equals(student.surname) : student.surname != null) return false;
+        if (email != null ? !email.equals(student.email) : student.email != null) return false;
+        if (phone != null ? !phone.equals(student.phone) : student.phone != null) return false;
+        if (lessons != null ? !lessons.equals(student.lessons) : student.lessons != null) return false;
+        return registeredDate != null ? registeredDate.equals(student.registeredDate) : student.registeredDate == null;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, surname, age, email, phone, registeredDate);
-        result = 31 * result + Arrays.hashCode(lessons);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + age;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (lessons != null ? lessons.hashCode() : 0);
+        result = 31 * result + (registeredDate != null ? registeredDate.hashCode() : 0);
         return result;
     }
 
@@ -111,8 +121,8 @@ public class Student {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", registeredDate=" + DateUtil.dateToString(registeredDate) +
-                ", lessons=" + Arrays.toString(lessons) +
+                ", lessons=" + lessons +
+                ", registeredDate=" + registeredDate +
                 '}';
     }
 }
